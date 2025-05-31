@@ -28,7 +28,7 @@ class StudentManager(BaseUserManager):
         return results.filter(role=Role.STUDENT)
 
 
-class Student(User):
+class Student(User, models.Model):
     base_role = Role.STUDENT
     student = StudentManager()  # Note: fixed typo from 'object' to 'objects'
 
@@ -48,6 +48,9 @@ def create_student_profile(sender, instance, created, **kwargs):
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     Student_id= models.IntegerField(null=True, blank=True)
+    Grade = models.CharField(max_length=50, null=True, blank=True)
+    Gender = models.CharField(max_length=10, null=True, blank=True)
+    Date_of_Birth = models.DateField(null=True, blank=True)
 class TeacherManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         results = super().get_queryset(*args, **kwargs)
